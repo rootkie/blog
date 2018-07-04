@@ -1,0 +1,22 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "Welcome - RK"
+
+PygmentsCodeFences = true
+PygmentsStyle = "monokai"
+
+theme = "hello-programmer"
+
+[taxonomies]
+    tag = "tags"
+    category = "categories"
+
+paginate = 5
+
+disqusShortname = "XXXX"
+googleAnalytics = "UA-XXXXXXXX-X"
+
+[author]
+    name = "Li Bailin"
+    email = "random@email.com"
+
