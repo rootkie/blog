@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XXXX on Welcome - RK</title>
+    <link>http://192.168.1.17:1313/xxxx/</link>
+    <description>Recent content in XXXX on Welcome - RK</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>random@email.com (Li Bailin)</managingEditor>
+    <webMaster>random@email.com (Li Bailin)</webMaster>
+    
+	<atom:link href="http://192.168.1.17:1313/xxxx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
