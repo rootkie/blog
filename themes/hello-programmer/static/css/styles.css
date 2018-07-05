@@ -4,7 +4,11 @@
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 * {
-  font-family: 'Nanum Gothic', 'Sans-serif';
+  font-family: 'Open Sans', 'Sans-serif';
+}
+
+body{
+  background-color: #FFFFFF;
 }
 
 html, body, h1, h2, h3, h4, h5 {
@@ -124,7 +128,7 @@ img {
   padding: 40px 30px 15px 30px;
   font-size: 16px;
   line-height: 1.65em;
-  color: #333e4c;
+  color: #000000;
 }
 
 .container .title {
@@ -149,7 +153,7 @@ img {
 }
 
 .summary-content {
-  color: #717171;
+  color: #000000;
   line-height: 1.6em;
 }
 
@@ -183,7 +187,7 @@ img {
 }
 
 .post-meta h1 {
-  color: #00B2A0;
+  color: #87BBA2;
   margin-top: 0px;
   margin-bottom: 30px;
   line-height: 1.2em;

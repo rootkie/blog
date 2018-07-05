@@ -1,17 +1,18 @@
-baseURL = "http://localhost:1313/"
+baseURL = "http://192.168.1.17:1313/"
 languageCode = "en-us"
 title = "Welcome - RK"
+
+hasCJKLanguage = "true"
 
 PygmentsCodeFences = true
 PygmentsStyle = "monokai"
 
 theme = "hello-programmer"
+paginate = 5
 
 [taxonomies]
     tag = "tags"
     category = "categories"
-
-paginate = 5
 
 disqusShortname = "XXXX"
 googleAnalytics = "UA-XXXXXXXX-X"
