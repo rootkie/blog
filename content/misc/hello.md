@@ -2,7 +2,7 @@
 title: "Hello World!"
 date: 2018-07-05T21:55:21+08:00
 categories: ["misc","随笔"]
-draft: true
+draft: false
 ---
 
 # 我是谁？

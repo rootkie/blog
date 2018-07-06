@@ -25,6 +25,11 @@
   <link rel="stylesheet" href="{{ "/css/styles.css" | relURL }}">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+
+  {{ "<!-- isso -->" | safeHTML }}
+  <script data-isso="{{ .Site.BaseURL }}isso/" src="{{ .Site.BaseURL }}isso/js/embed.min.js"></script>
+  {{ "<!-- end isso -->" | safeHTML }}
+  
 </head>
 
 <body>
