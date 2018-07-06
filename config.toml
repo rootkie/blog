@@ -14,7 +14,6 @@ paginate = 5
     tag = "tags"
     category = "categories"
 
-disqusShortname = "XXXX"
 googleAnalytics = "UA-XXXXXXXX-X"
 
 [author]
