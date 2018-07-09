@@ -197,13 +197,20 @@ target_esp -> (a memory space we control, set up as follows)
 ```
 
 Step by step:
+
 1. ebp = target_esp
+
 2. eip = lr_gadget
+
 3. enters the first lr_gadget, repeat leave; ret as follows
 
 4. esp = target_esp (ebp)
+
 5. ebp = start_of_fake_frame
+
 6. eip = target_function
+
+Now we can work in the memory space we control.
 
 #### suggested reading
 A lot of useful gadgets and techinques [ret-2-csu](https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR-wp.pdf)
