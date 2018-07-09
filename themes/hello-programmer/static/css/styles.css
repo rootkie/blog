@@ -52,7 +52,8 @@ a, a:visited {
 }
 
 code {
-  background-color: #F5F5F5;
+  background-color: #282A36;
+  color: #f8f8f2;
   border-radius: 3px;
   padding: 3px;
 }
