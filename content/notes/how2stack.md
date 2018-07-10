@@ -212,10 +212,12 @@ Step by step:
 
 Now we can work in the memory space we control.
 
-#### suggested reading
-A lot of useful gadgets and techinques [ret-2-csu](https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR-wp.pdf)
+#### ret-2-csu
 
-Make scripting easier [Pwntool rop documentation](http://docs.pwntools.com/en/stable/rop/rop.html)
+for 64bit binaries, ret-2-csu can be abused to call arbitary functions with up to 3 parameters. Refer to document [here](https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR.pdf#page=37)
+
+<object data="https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR.pdf#page=37" type="application/pdf" width="700px" height="500px">
+</object>
 
 ## Blind Rop
 
@@ -225,7 +227,13 @@ Advanced topic, still learning...
 
 I am still learning this technique, will update it as soon as I understand it thoroughly.
 
+## Resources linked
 
+* [Intro to ROP](https://www.slideshare.net/saumilshah/dive-into-rop)
+* [ret-2-csu research paper](https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR-wp.pdf)
+* [ret-2-csu presentation](https://www.blackhat.com/docs/asia-18/asia-18-Marco-return-to-csu-a-new-method-to-bypass-the-64-bit-Linux-ASLR.pdf#page=37)
+* [One_gadget github](https://github.com/david942j/one_gadget)
+* [Pwntool rop documentation](http://docs.pwntools.com/en/stable/rop/rop.html)
 
 
 
