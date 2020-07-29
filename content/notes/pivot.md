@@ -1,7 +1,7 @@
 ---
 title: "MSF Pivot Tips"
 date: 2019-03-11T21:33:07Z
-draft: true
+draft: false
 categories: ['notes']
 tags: ['tips','pentest']
 ---
