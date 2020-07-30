@@ -1,0 +1,9 @@
+code:not([class]){
+    background-color:lightgrey;
+    padding-right:0.2em;
+    padding-left:0.2em;
+}
+
+body{
+    background-color:#F3E0BE;
+}

@@ -48,7 +48,7 @@ disqusShortname = ""
 	#favicon = true
 
 	# Add list of sections that should show up on the homepage
-        mainSections = ["post"]
+    mainSections = ["post"]
 
 	# Add list of Sections/Types that should no be considered by RSS
 	#nofeedSections = ["post"]
