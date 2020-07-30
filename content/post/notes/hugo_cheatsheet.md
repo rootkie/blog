@@ -1,7 +1,7 @@
 ---
 title: "Hugo cheatsheet"
 date: 2020-07-29T22:13:59+08:00
-draft: true
+draft: false 
 categories: ['notes']
 tags: ['tips']
 ---
