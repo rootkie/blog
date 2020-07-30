@@ -13,10 +13,10 @@ It's been a while since I blogged. And I realised that I have almost forgotten h
 # Basic workflow
 
 ## Creating and testing new blog post
-|   |   |
+|command   |comment   |
 |---|---|
 |hugo new site site_name         |  #create a new site|
-|hugo new notes/postname.md      |  #create a new post in content/notes/|
+|hugo new post/notes/postname.md      |  #create a new post in content/post/notes/|
 |hugo                            |  #builds static website in public/|
 |hugo server -D                  |  #starts a server to see how your blog looks like|
 
@@ -36,4 +36,11 @@ hugo && rsync -avz --delete public/ ${USER}@${HOST}:/var/www/hugoblog/
 
 exit 0
 ```
+
+# Changing theme
+
+1. Find a theme on [https://themes.gohugo.io/](https://themes.gohugo.io/)
+2. Follow the instruction to download unpack in `themes` folder. Or use `git submodule add` from [here](https://gohugo.io/getting-started/quick-start/)
+3. Copy the theme.toml or config.toml file into your root directory, adjust the parameters accordingly
+
 

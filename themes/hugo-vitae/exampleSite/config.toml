@@ -1,8 +1,8 @@
-baseURL = "https://rootkiddie.com/"
+baseURL = "http://example.org/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-author = "Li Bailin"
-title = "/var/www/blog"
+author = "Hugo Authors"
+title = "Vitae"
 theme = "hugo-vitae"
 paginate = 5
 enableRobotsTXT = true
@@ -24,16 +24,16 @@ disqusShortname = ""
 [params]
 
 	# Add meta keywords in head part (Site Keywords or Tags of Page)
-	keywords = ["ctf","cybersecurity","pwn","hacking"]
+	keywords = ["hugo","vitae","theme","static"]
 
 	# Add meta description in head part
-	#description = "Vitae is a blog theme for Hugo that focuses on your content."
+	description = "Vitae is a blog theme for Hugo that focuses on your content."
 
 	# Add pagetitle to homepage <title> tag
-	pagetitle = "/home/rootkid"
+	pagetitle = "All about static site generation"
 
 	# Add a subtitle to your website
-	subtitle = "A place to learn and document"
+	subtitle = "[Vitae](https://github.com/dataCobra/hugo-vitae) is a blog theme for Hugo that focuses on your content."
 
 	# Activate to show authors on pages if available
 	#listAuthor = true
@@ -42,7 +42,7 @@ disqusShortname = ""
 	math = true
 
 	# Optional 80x80 avatar image.
-	#avatar = "/img/logo.png"
+	avatar = "/img/vitae.jpg"
 
 	# Optional favicons for website
 	#favicon = true
@@ -73,10 +73,10 @@ name = "All Posts"
 url = "/post"
 weight = 2
 
-#[[menu.main]]
-#name = "About"
-#url = "/about"
-#weight = 3
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
 
 [[menu.main]]
 name = "Tags"
@@ -91,7 +91,7 @@ weight = 5
 [[params.social]]
 name = "Github"
 icon = "fab fa-github"
-url = "https://github.com/rootkie"
+url = "https://github.com/dataCobra/hugo-vitae"
 
 [[params.social]]
 name = "RSS"
