@@ -25,3 +25,10 @@ This is not a place for exploit development. I will probably make a separate lis
 |----|-----------|
 |https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/ | pretty much the checklist for linux *priv esc*. Follow thoroughly, do not miss a step! |
 
+## Tools
+
+### Recon
+|url    | function |
+|-------|----------|
+|https://github.com/Cgboal/SonarSearch | Subdomain Look up using Rapid7 Sonar Project. Passive Recon|
+
