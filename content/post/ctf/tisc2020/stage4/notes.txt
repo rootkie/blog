@@ -1,0 +1,19 @@
+The program has a very interesting function before a HTTP Post. Extracting parameters from the HTTP Post parameter revealed that it is sending information to a randomized URL. which fits the description of this challenge.
+
+In dynamic analysis, we find out that rdx is actually our epoch which is used to seed the random seed to generate the URL.
+
+rand.Seed(epoch>>0xf)
+
+Instead of reversing the entire algorithm with the random generations, we can just break the process at this point, change the seed to the seed we want and let the program continue running  to get our domains.
+
+
+before seed
+0x0000000000661501
+
+concatstring url
+0x0000000000661726
+
+
+before post form
+
+0x0000000000662412
