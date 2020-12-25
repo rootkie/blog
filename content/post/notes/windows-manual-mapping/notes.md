@@ -2,6 +2,7 @@
 title: "Windows manual mapping"
 date: 2020-12-25T22:44:00+08:00
 draft: false
+categories: ['notes']
 ---
 
 # Introduction
