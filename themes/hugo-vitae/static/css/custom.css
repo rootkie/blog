@@ -1,9 +1,17 @@
 code:not([class]){
-    background-color:lightgrey;
-    padding-right:0.2em;
-    padding-left:0.2em;
+    font-style: oblique;
 }
 
 body{
-    background-color:#F3E0BE;
+    background-image: linear-gradient(rgba(66,96,189, 0.2), rgba(66,96,189, 0.4));
+}
+
+table th {
+    background-color: rgba(66,96,189, 0.9);
+    color: rgb(244, 234, 202); 
+}
+
+table tbody tr:nth-of-type(2n) {
+    background-color: rgba(66,96,189, 0.2);
+    color: black;
 }
