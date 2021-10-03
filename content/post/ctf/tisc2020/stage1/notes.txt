@@ -1,4 +1,0 @@
-This challenge is straightfoward.
-1. Crack the encrypted zip file with fcrackzip / jtr since it's 6 characters of hexadecimal. It's a very small keyspace.
-2. Unzip the file with the found password 7cb761
-3. Write a script to decrypt / decode further.

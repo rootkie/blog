@@ -1,0 +1,172 @@
+Similar to stage 2, I am looking for relevant APIs from golang.
+
+Since this is asking me to decrypt an encrypted db file, the ransomware must read/write the files. So looking into golang documentation, we find ioutil_WriteFile and ioutil_Readfile
+
+And with xrefs, I find that the funciton main_visit_func1 calls both of them. Looking through the function, I also found crypto_aes_NewCipher which initializes the aes object to encrypt stuff.
+
+This is most likely the function that handles the encryption of the files.
+
+Tracing back how key is generated, we looked into main_main and found the following sequence.
+
+
+1. Generated the keys and IV
+2. Create a keyenc string
+e.g City=Singapore&EncIV=%1C%9F%A4%9B%2C%9EN%AF%04%9CA%AE%02%86%03%81&EncKey=%99z%11%12%7FjD%22%93%D2%A8%EB%1D2u%04&IP=112.199.210.119&MachineId=6d8da77f503c9a5560073c13122a903b
+3. Use the public certificate as modulus
+4. keyenc string ** 3 mod modulus -> f77eceec sth sth (rmb little endian, so hex result needs to be packed properly)
+5. Since the modulus is much larger than keystr ** 3, keystr can be easily recovered by taking cube root of the keyenc file.
+6. Recover the key and IV and write a decrypt script
+City=Singapore&EncIV=%1C%9F%A4%9B%2C%9EN%AF%04%9CA%AE%02%86%03%81&EncKey=%99z%11%12%7FjD%22%93%D2%A8%EB%1D2u%04&IP=112.199.210.119&MachineId=6d8da77f503c9a5560073c13122a903b
+7. The first 2 byte of IV is changed to the first 2 bytes of encrypted file name.
+8. Write a go program to decrypt the secret_investments.db.anoroc for flag
+
+
+0x951de0 <main.EncIVCur>:       0x8f787df3febd622e      0x1c0151bf3c94120b
+0x951df0 <main.EncKey>: 0xdd55351ca78540a8      0x0313137444baf95e
+
+
+0x6622d7 <main.main+2439> call   0x4de620 <math/big.(*Int).SetInt64>
+0x6622dc <main.main+2444> mov    rax, QWORD PTR [rsp+0xe8]
+
+[rsp+0xe8] -> 0x000000c00019e160
+[0x000000c00019e160+8] -> modulus (part of the certificate found in stage 2
+
+
+(keyenc)
+City=Kampong+Bukit+Panjang&EncIV=%C2%09%92%E6W%A9%86%5B%7D%7C%D7.%88%A1%1E%AC&EncKey=%13O%F6r%18r%1D%A0%08%CFp%C2Z%AD%3A%CA&IP=101.78.85.118&MachineId=
+
+
+0xc0002e41e0:   0xf77eceec8baf02a5      0x2a0d0b70afb32382
+0xc0002e41f0:   0x8907b72d2f6cbefe      0xe64ebac723b9ffee
+0xc0002e4200:   0x081c498d85bef37b      0x32b6dc936843b372
+0xc0002e4210:   0xc2e494b236a24ae0      0x63a0629326309f04
+0xc0002e4220:   0xc7fbe7b081ab4560      0xaad7961052ea4d23
+0xc0002e4230:   0x09769d304e16aa82      0x71d6bd033c6f5805
+0xc0002e4240:   0xdc1a524ea7875de5      0x1f47046565f43ea0
+0xc0002e4250:   0x4b6a418ca5a1833c      0xe786334663e59c01
+0xc0002e4260:   0xe7908b99e5b038b4      0x2be5161643eb6ed7
+0xc0002e4270:   0x34f7679c5a67e17d      0x728e3243c5675e04
+
+
+
+0xc000645881:   0x3ed3f791afa8ac04      0xbcc272019c68bc82
+0xc000645891:   0xdd360483c847641e      0x7a0f9683dc5930ae
+0xc0006458a1:   0xaf2722af84f39791      0x8c9ff461a205f1ee
+0xc0006458b1:   0xa4632c25f0efbcc1      0x276f077fbc1a7b3f
+0xc0006458c1:   0x7a172c048c16aaf4      0x692f57fa78b048b4
+0xc0006458d1:   0x96881a1da638b350      0x251f6357ad03c323
+0xc0006458e1:   0x522cbb9425d673bd      0xe22f8ef9c6a84726
+0xc0006458f1:   0x5efeeae8b2bd2a37      0x50cd430b9cf7e8bd
+0xc000645901:   0xc2b0629b91672571      0x55d6bf2bad72fd08
+0xc000645911:   0xe171a995284bb4e1      0x32f59151ce33a04a
+0xc000645921:   0x91a6209fc5762909      0x341c88e48f95735b
+0xc000645931:   0xa1d46272c6d2e81e      0x1a32e6a1c0eb855e
+0xc000645941:   0x4eb1672cbd95b037      0xc94ff67fb8a3eb7c
+0xc000645951:   0xfe077e54bd6b9828      0xc097ac3c7d949313
+0xc000645961:   0x5f971d41333cbe6c      0xede4c06a9aec39ce
+0xc000645971:   0x2f540b25afb49605      0x423497cb516441f0
+0xc000645981:   0x000e42a753da1a80      0x5e9a3387db786e75
+0xc000645991:   0xe414d2b9187af6f4      0x18fa59fda2807b8c
+0xc0006459a1:   0x91d5f265ae067d55      0x31e03afcd684d80f
+0xc0006459b1:   0x8e38560548580d98      0x89cf4107e6235463
+0xc0006459c1:   0xa0f7b7dd18ae619d      0xef7b5f46f52ee904
+0xc0006459d1:   0xf9d5cde4af90fbc3      0x1a097e3e5d935d98
+0xc0006459e1:   0xda1fa29f55a1f6ca      0x066e87fa6b6cabb2
+0xc0006459f1:   0xac3a6263c4e3b24c      0xf967b05f730b1d63
+0xc000645a01:   0xd79662d3de989dae      0x487073d36482c6d4
+0xc000645a11:   0x80cad07a85fbeecf      0x198c13750c976903
+0xc000645a21:   0x89eeffb9237cea1e      0x2afebe6c2f2db707
+0xc000645a31:   0xf78223b3af700b0d      0x00a502af8becce7e
+
+
+
+rsa encryption
+
+0x4df690 → math/big.(*Int).Exp(z=0xc0001f5dd8, x=0xc0001f5dd8, y=0xc0001f5db8, m=0xc0005ce080, ~r3=<optimized out>)
+
+
+x = keyenc
+=dIenihcaM&811.58.87.101=PI&0C%FC%sB8%5F%6C%31%DF%88%h9A%FD%8D%jBC%p=yeKcnE&AA%CD%FD%06%51%10%01%12%6C%O68%51%5C%2048%=VIcnE&gnajnaP+tikuB+gnopmaK=ytiC
+
+0xc000296000:   0x6368696e6549643d      0x352e313138264d61
+0xc000296010:   0x3130312e37382e38      0x462543302649503d
+0xc000296020:   0x4635253842732543      0x4425313325433625
+0xc000296030:   0x4139682538382546      0x6a25443825444625
+0xc000296040:   0x4b65793d70254342      0x4325414126456e63
+0xc000296050:   0x2536302544462544      0x3130253031253135
+0xc000296060:   0x4f25433625323125      0x4335253135253836
+0xc000296070:   0x563d253834303225      0x616e6726456e6349
+0xc000296080:   0x6b69742b50616e6a      0x6d706f6e672b4275
+0xc000296090:   0x00436974793d4b61      0x0000000000000000
+
+
+y = 3
+
+
+m = 
+0xc0001c6900:   0x0617b2f70ce30fe9      0x4cc00ccdbe63d231
+0xc0001c6910:   0xd788aa2467593dd3      0x91c2276a78e924a4
+0xc0001c6920:   0x2d6f158e34bd2934      0xda255e29e22b0354
+0xc0001c6930:   0x698896f322773349      0xbbe36874a02385d5
+0xc0001c6940:   0x75209015d8cddcbf      0x26cbb6d0b0761720
+0xc0001c6950:   0xde7d30557b16b7a4      0x6f2e764e3644dd23
+0xc0001c6960:   0xb1e07de77898b2f2      0xb464544dd0ccc595
+0xc0001c6970:   0x480923e6568d4c15      0x6e76faadb17f4fa6
+0xc0001c6980:   0x9109b64e6ac0fcc6      0x965947608d3706cc
+0xc0001c6990:   0x27c1895f620ec99a      0xea4ed12f5a24a5b3
+0xc0001c69a0:   0xf0d155779d524d3a      0xf649628b2affd0bd
+0xc0001c69b0:   0xb4ea894b13975a0e      0x750b8a9bd43aa92d
+0xc0001c69c0:   0x5a5d8f09503617b5      0x2337093749316800
+0xc0001c69d0:   0xb06314dbb7509d15      0x568b75c2bc8ac7e8
+0xc0001c69e0:   0x7ffb32b2ece16b29      0xb5f8873cc6af943a
+0xc0001c69f0:   0x279855b9c9411461      0x5993ccfb31a26df1
+0xc0001c6a00:   0x7464e70469fdce9e      0xfb986600531a77da
+0xc0001c6a10:   0x8e32758c7fdcb05d      0xd77bc2e16463f67c
+0xc0001c6a20:   0x6e93cfbefece9a1c      0xa1187efef3081223
+0xc0001c6a30:   0xd2bc7294995dd0d5      0x67927e62f83d4bce
+0xc0001c6a40:   0xaa5190c534da63b6      0x8fd37c700ba93be3
+0xc0001c6a50:   0xe7f9ebf609293000      0x15b9ff5393561912
+0xc0001c6a60:   0x25e4ace1f29fc949      0xb33fe54b9a92e79f
+0xc0001c6a70:   0x4a6d45a33f94d015      0x8aeb3f19a99fc5f6
+0xc0001c6a80:   0xfcb6ebfc4b3f9fbf      0x6cb1340394a69374
+0xc0001c6a90:   0xf939164a07480360      0xa2cffde39ae09f07
+0xc0001c6aa0:   0xeda09dc2a2490d81      0x4f4d6f10e3286f15
+0xc0001c6ab0:   0x19077ee175e95f78      0x0aa88835d643514e
+0xc0001c6ac0:   0x709dff9e8592ebe1      0xbef34ba0578a3b8c
+0xc0001c6ad0:   0xbdc87a95609b8fd7      0x08ea49380da3d52f
+0xc0001c6ae0:   0x11e50810b81f2e23      0x11b16ba8ac03d99e
+0xc0001c6af0:   0x531d6b7d818a73de      0x4688d172d7bcee6a
+0xc0001c6b00:   0xb6c1a17856fbbfce      0xde42a4d0a4557879
+0xc0001c6b10:   0xe461c24784e6e4c6      0xb31f1d00ba26e2c7
+0xc0001c6b20:   0x887eee9fe97e95cc      0x69f15be974bba8fb
+0xc0001c6b30:   0xd7057aeebd3dba3a      0x576c8984ea4e7740
+0xc0001c6b40:   0x9687878d8b88283e      0x9035607bb32eb133
+0xc0001c6b50:   0xb59e9e445ca4e2ce      0x18e6ce11fec478f7
+0xc0001c6b60:   0xcde2d546bd61859f      0x223c4708d8a062d6
+0xc0001c6b70:   0x104e77f6704d06fe      0x827cd6a6fd8bae26
+0xc0001c6b80:   0x25f15990c21fcaeb      0xce3f73ea0e31b0c9
+0xc0001c6b90:   0x2127b9addcdcfc04      0x2c26a8eb41441116
+0xc0001c6ba0:   0x9c945d97f6446ad0      0xf541bb6a6c976ce4
+0xc0001c6bb0:   0x4a62c2e8bd34edc0      0x507d990063ef971d
+0xc0001c6bc0:   0xbb60f49611662771      0x7cfdbeeb9c094d44
+0xc0001c6bd0:   0x6f14340f824c9c33      0x064f65c9b4b56f17
+0xc0001c6be0:   0xff6ed78995099802      0x43f97247c8a80ab8
+0xc0001c6bf0:   0x8caf5c07aecc6b6d      0x1fa39ac52c4ec41b
+0xc0001c6c00:   0x60ff3c9b11038bbb      0x0566b253d7f45cea
+0xc0001c6c10:   0xd2ae151bc77a53bb      0x8cc7d719067c332f
+0xc0001c6c20:   0x32b5912ee31888ed      0x1f9a0ec25044a64d
+0xc0001c6c30:   0x414edf47cf517f7d      0xaa9c145690233cb3
+0xc0001c6c40:   0xceb93f8b6f3a98a1      0x2ac466923e520d42
+0xc0001c6c50:   0x43b044ce012093c9      0xff2e8d37e42071e3
+0xc0001c6c60:   0x72efbb88e2044a31      0x1e55f77e416ada25
+0xc0001c6c70:   0x43ed4fca46628349      0xdf43b533c1a129f5
+0xc0001c6c80:   0x4db2fe39a364707c      0x79f7db54c08c4660
+0xc0001c6c90:   0x3183b93022d986c6      0x5995f4a0bcca0bf0
+0xc0001c6ca0:   0xc5e83d6df7b8655a      0x376f02eab70d16e1
+0xc0001c6cb0:   0x7e34c1fa37bf5a2e      0x092f5d9a6e7df7d3
+0xc0001c6cc0:   0x119900c4acf65faa      0x6058ae7fc1acba07
+0xc0001c6cd0:   0xbead152f036da09c      0xee1d43b82cdded93
+0xc0001c6ce0:   0xf9cc917be93c5c5c      0xc837e9d411ea226b
+0xc0001c6cf0:   0x96fa337fdcd15fc3      0x9bdf5bda9bedad58
+0xc0001c6d00:   0x0000000000000000      0x0000000000000000
+0xc0001c6d10:   0x0000000000000000      0x0000000000000000
